@@ -8,7 +8,7 @@ exports.createTodo = async (req, res) => {
     const usersId = req.params.usersId;
     console.log(usersId, "usersId");
     const { title, description, createdOn } = req.body;
-    console.log(req.body, "bobyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    console.log(req.body, "body");
 
     const formattedCreatedOn = moment(
       createdOn,
