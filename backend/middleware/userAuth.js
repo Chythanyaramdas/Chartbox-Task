@@ -11,7 +11,7 @@ const clientJwt = async (req, res, next) => {
     }
 
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(decodedToken,"decodedTokenvvvvvvvvvvvvvvvvvvv");
+    // console.log(decodedToken,"decodedTokenvvvvvvvvvvvvvvvvvvv");
     if (!decodedToken) {
       throw new Error("Authentication failed: Invalid token");
     }
@@ -34,7 +34,7 @@ const clientJwt = async (req, res, next) => {
   } catch (error) {
     console.error(error.message);
     if (error.name === "TokenExpiredError") {
-        console.log("koppppppppp");
+        // console.log("koppppppppp");
         
       return res.status(403).json({ message: "Token expired" });
       

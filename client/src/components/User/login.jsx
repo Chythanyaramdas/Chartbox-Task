@@ -22,7 +22,7 @@ const UserLogin = () => {
         navigate("/");
       });
     } catch (error) {
-      alert("User Blocked");
+      alert("Failed to login");
     }
   };
 

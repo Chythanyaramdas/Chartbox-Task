@@ -31,16 +31,16 @@ var otp = Math.floor(Math.random() * (max - min + 1)) + min;
 // = Math.random()* 1000000;
 
 exports.register = async (req, res) => {
-  console.log("gghghghg");
+  // console.log("gghghghg");
   try {
-    console.log("jhjhkjhjkhjkh");
+    // console.log("jhjhkjhjkhjkh");
     const { name, email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     // Check if the email is already taken
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log("already exit");
+      // console.log("already exit");
       res.status(400).json({ message: "Email already exists" });
     } else {
       var mailOptions = {
@@ -77,13 +77,13 @@ exports.register = async (req, res) => {
 
 exports.otp = async (req, res, next) => {
   try {
-    console.log("haiiiiii", req.body);
+    // console.log("haiiiiii", req.body);
 
     const Email = req.body.email;
-    console.log(req.body.email);
+    //console.log(req.body.email);
 
     const user = await User.findOne({ email: req.body.email });
-    console.log(user, "hiiiiiihere");
+    //console.log(user, "hiiiiiihere");
     if (!user) {
       console.log("no user");
 
@@ -104,11 +104,9 @@ exports.otp = async (req, res, next) => {
         } else {
           console.log("success", { otp });
         }
-        
       });
     } else {
       console.log("exit");
-     
     }
   } catch (error) {
     console.log(error);
@@ -117,15 +115,15 @@ exports.otp = async (req, res, next) => {
 };
 
 exports.verification = async (req, res) => {
-  console.log("veriiii");
+  // console.log("veriiii");
   try {
-    console.log(req.body, "body is here");
+    //console.log(req.body, "body is here");
     req.session.otp = req.body.numberOpt;
-    console.log(req.body.result, "Entered otp");
-    console.log(otp, "otp send");
+    //console.log(req.body.result, "Entered otp");
+    //console.log(otp, "otp send");
 
     if (otp == req.body.result) {
-      console.log("iff");
+      // console.log("iff");
       req.session.password = req.body.password;
       let hashedPassword = await bcrypt.hash(req.body.password, 10);
       let newUser = new User({
@@ -134,9 +132,9 @@ exports.verification = async (req, res) => {
         password: hashedPassword,
       });
 
-      console.log(newUser, "userDatas");
+      // console.log(newUser, "userDatas");
       newUser.save().then((data) => {
-        console.log(data, "oooo");
+        // console.log(data, "oooo");
 
         res.status(200).json({ message: "Authenticated" });
       });
@@ -151,7 +149,7 @@ exports.verification = async (req, res) => {
 module.exports.authUser = async (req, res) => {
   try {
     res.json({ status: true, user: req.user });
-    console.log(req.user ? "User found" : "User not found");
+    //console.log(req.user ? "User found" : "User not found");
   } catch (error) {
     console.log("no auth");
   }
@@ -190,9 +188,9 @@ exports.refreshToken = async (req, res) => {
 module.exports.resetPasswordOtp = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(req.body, "emmmiiiii");
+    // console.log(req.body, "emmmiiiii");
     const userData = await User.findOne({ email: email });
-    console.log(!!userData, "du");
+    // console.log(!!userData, "du");
     if (userData && userData.name) {
       var mailOptions = {
         from: USER_MAIL,
@@ -234,7 +232,7 @@ module.exports.verifyNewPassword = async (req, res) => {
   try {
     console.log(otp, "global otp");
     let result = JSON.parse(otp);
-    console.log("resultzzzz");
+    // console.log("resultzzzz");
     if (otp === result) {
       console.log("success");
       res.json({
@@ -277,21 +275,21 @@ module.exports.userLogin = async (req, res, next) => {
   // console.log("Staffil ethiii");
   // password:Chy123
 
-  console.log("userlogin isss");
+  //console.log("userlogin isss");
 
   try {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(email, password, "mmkki");
+    // console.log(email, password, "mmkki");
     const userData = await User.findOne({ email: email });
-    console.log(userData._id);
-    console.log("correct");
-    console.log(userData, "oooo");
+    // console.log(userData._id);
+    // console.log("correct");
+    // console.log(userData, "oooo");
     if (userData) {
-      console.log("is present");
+      // console.log("is present");
 
       if (userData.isBlocked === true) {
-        console.log("njn");
+        // console.log("njn");
         res.status(401).json({
           message: "User Blocked",
         });
@@ -301,13 +299,13 @@ module.exports.userLogin = async (req, res, next) => {
       console.log(passwordMatch);
 
       if (passwordMatch) {
-        console.log(JWT_SECRET_KEY, "kkkk");
+        //console.log(JWT_SECRET_KEY, "kkkk");
         const token = jwt.sign(
           { userId: userData._id, role: "client" },
           process.env.JWT_SECRET_KEY,
           { expiresIn: 30000 }
         );
-        console.log(token, "token");
+        // console.log(token, "token");
 
         res
           .status(200)
@@ -316,7 +314,7 @@ module.exports.userLogin = async (req, res, next) => {
         res.status(401).json({ message: "invalid password" });
       }
     } else {
-      console.log("pottiii");
+      // console.log("pottiii");
       res.status(404).json({ message: "user not found" });
     }
   } catch (error) {

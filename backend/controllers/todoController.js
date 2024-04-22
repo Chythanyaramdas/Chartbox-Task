@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const Todo = require("../models/todoModel");
 
 exports.createTodo = async (req, res) => {
-  console.log("createTodo");
+  // console.log("createTodo");
   try {
     const usersId = req.params.usersId;
-    console.log(usersId, "usersId");
+    // console.log(usersId, "usersId");
     const { title, description, createdOn } = req.body;
-    console.log(req.body, "body");
+    // console.log(req.body, "body");
 
     const formattedCreatedOn = moment(
       createdOn,
       "DD-MM-YYYY [at] HH:mm:ss"
     ).format("DD-MM-YYYY [at] HH:mm:ss");
 
-    console.log(formattedCreatedOn, "formattedCreatedOn");
+    // console.log(formattedCreatedOn, "formattedCreatedOn");
 
     const userIdObject = new mongoose.Types.ObjectId(usersId);
 
@@ -27,7 +27,7 @@ exports.createTodo = async (req, res) => {
     });
 
     const savedTodo = await newTodo.save();
-    console.log("savedTodo", savedTodo);
+    // console.log("savedTodo", savedTodo);
     res.status(201).json(savedTodo);
   } catch (error) {
     console.error("Error creating todo:", error);
@@ -38,7 +38,7 @@ exports.createTodo = async (req, res) => {
 exports.getTodoList = async (req, res) => {
   try {
     const userId = req.params.usersId;
-    console.log(userId, "userIdssssss");
+    // console.log(userId, "userIdssssss");
     const todos = await Todo.find({ createdBy: userId, isCompleted: false });
     const completedTodos = await Todo.find({
       createdBy: userId,
@@ -54,7 +54,7 @@ exports.getTodoList = async (req, res) => {
 exports.deleteTodo = async (req, res) => {
   try {
     const todoId = req.params.todoId;
-    console.log(todoId, "todoId ");
+    // console.log(todoId, "todoId ");
     await Todo.findByIdAndDelete(todoId);
     res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {
@@ -65,12 +65,12 @@ exports.deleteTodo = async (req, res) => {
 
 exports.completeTodo = async (req, res) => {
   const todoId = req.params.todoId;
-  console.log(todoId,"todoIdssssssss");
+  // console.log(todoId,"todoIdssssssss");
 
   try {
    
     const updatedTodo = await Todo.findByIdAndUpdate(todoId, { isCompleted: true }, { new: true });
-    console.log(updatedTodo,"updatedTodoooooo");
+    // console.log(updatedTodo,"updatedTodoooooo");
     if (!updatedTodo) {
       return res.status(404).json({ message: 'Todo not found' });
     }
@@ -86,7 +86,7 @@ exports.completeTodo = async (req, res) => {
 exports.todoUpdation = async (req, res) => {
   try {
     const todoId = req.params.todoId;
-    console.log(todoId);
+    // console.log(todoId);
     const { title, description } = req.body;
 
     const updatedTodo = await Todo.findByIdAndUpdate(

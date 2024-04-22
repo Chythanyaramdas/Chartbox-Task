@@ -94,6 +94,7 @@ function App() {
         (todo) => todo._id !== todoId
       );
       setCompletedTodos(updatedCompletedTodos);
+     
     } catch (error) {
       console.error("Error deleting completed todo:", error);
       alert("Failed to delete completed todo. Please try again.");
@@ -120,6 +121,7 @@ function App() {
       );
       setTodos(updatedTodos);
       setCurrentEdit("");
+     
     } catch (error) {
       console.error("Error updating todo:", error);
       alert("Failed to update todo. Please try again.");
