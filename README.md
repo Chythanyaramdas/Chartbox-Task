@@ -63,28 +63,7 @@ Getting Started
 2) Set up environment variables:
 
 Create a .env file in the root directory or rename the current .env.sample file and configure necessary variables for client and server sides.
-
-  Client ENV:
-               
-   REACT_APP_BASE_URL=http://localhost:3001/
-
-  Server ENV:
-
-    JWT_SECRET_KEY=weertyiopkjhg
-  
-    REFRESH_TOKEN_SECRET=weertyiopkjhg
-  
-    JWT_EXPIRATION=30000
-  
-    USER_MAIL=chythanyaramdas03@gmail.com
-  
-    USER_PASSWORD=urqmdcsmshmsspdp
-  
-    CLIENT_URL= http://localhost:3000/
-    
-     
-                     
-                     
+                                         
 3) Navigate to client directory:
 
 Open a terminal in Visual Studio Code and split it into two terminals. In the first terminal, navigate to the client directory:
